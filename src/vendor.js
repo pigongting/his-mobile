@@ -3,6 +3,7 @@ import 'react-router';
 
 import 'dva';
 
+/*
 import 'intl';
 import 'react-intl';
 
@@ -17,7 +18,6 @@ import DatePicker from 'antd/lib/date-picker';
 import Table from 'antd/lib/table';
 import Pagination from 'antd/lib/pagination';
 
-/*
 import 'antd/lib/layout/style/css';
 import 'antd/lib/menu/style/css';
 import 'antd/lib/icon/style/css';

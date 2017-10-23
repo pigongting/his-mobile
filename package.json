@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "antd": "^2.13.6",
+    "antd-mobile": "^2.0.0",
     "axios": "^0.16.2",
     "babel-runtime": "^6.9.2",
     "clone": "^2.1.1",
@@ -50,6 +51,7 @@
     "node-hook": "1.0.0",
     "nprogress": "^0.2.0",
     "perfect-scrollbar": "^0.8.1",
+    "postcss-pxtorem": "^4.0.1",
     "react": "^15.4.0",
     "react-addons-perf": "^15.4.2",
     "react-dom": "^15.4.0",

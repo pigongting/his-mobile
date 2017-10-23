@@ -52,7 +52,6 @@ export function removelocalkeepthree(pathname) {
 }
 
 export function historyreplace(history, pruepath, search) {
-  console.log(pruepath);
   if (!localesReg.test(pruepath)) {
     if (pruepath === '' || pruepath === '/') {
       history.replace('/zh/index');

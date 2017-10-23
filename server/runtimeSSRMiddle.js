@@ -7,7 +7,7 @@ import routes from '../src/routes';
 // 处理 国际化地址 的中间件
 import { getpruepath, getlocalname } from '../src/utils/localpath';
 
-function onRenderSuccess({ html, url, env, state}) {
+function onRenderSuccess({ html, url, env, state }) {
   // console.log(html);
   // console.log(url);
   // console.log(env);
@@ -18,7 +18,7 @@ function runtimeSSRMiddleWarp(req, res, next) {
   const pruepath = getpruepath(req._parsedUrl.pathname);
   const localename = getlocalname(pruepath);
 
-  console.log(routes(localename));
+  // console.log(routes(localename));
 
   ssr.runtimeSSRMiddle({
     routes: routes(localename),
