@@ -1,5 +1,5 @@
-import request from '../utils/request';
-import { apiPrefix, apiNexfix } from './config';
+import request from '../../utils/request';
+import { apiPrefix, apiNexfix } from '../config';
 
 /* 插入 */
 export function insertRow(action, config, options) {}
@@ -13,7 +13,13 @@ export function viewedRow(action, config, options) {}
 export function listPageData(action, config, options) {}
 /* 列出全部数据 */
 export function listAllData(action, config, options) {}
-/* 列出指定级别数据 */
-export function listTreeData(action, config, options) {}
 /* 列出全部级别数据 */
+export function listTreeData(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}dept/getAllDeptList${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 列出指定级别数据 */
 export function listOneLevelData(action, config, options) {}

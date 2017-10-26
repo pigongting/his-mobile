@@ -1,6 +1,6 @@
 import React from 'react';
 // antd 组件
-import { notification, Button } from 'antd';
+// import { notification, Button } from 'antd';
 
 const retryErrorType = ['dataError', 'timeout'];
 const errorDesc = {
@@ -12,7 +12,7 @@ const errorDesc = {
 
 function retry(openkey, dispatch, frommodel) {
   // 删除错误提示
-  notification.close(openkey);
+  // notification.close(openkey);
 
   setTimeout(() => {
     const pathname = window.location.pathname.replace(/[/]/g, '_');
@@ -45,10 +45,10 @@ function fetchErrorNotification(dispatch, action) {
   // 可以重试的错误类型
   if (retryErrorType.includes(action.errortype)) {
     notify.duration = 0;
-    notify.btn = (<Button type="primary" size="small" onClick={() => retry(openkey, dispatch)}>重试</Button>);
+    // notify.btn = (<Button type="primary" size="small" onClick={() => retry(openkey, dispatch)}>重试</Button>);
   }
   // 显示错误提示
-  notification.error(notify);
+  // notification.error(notify);
 }
 
 function onError(e, dispatch) {

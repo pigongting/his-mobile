@@ -25,6 +25,29 @@ function Routes(locale, app) {
           cb(null, { component: require('./routes/Index') });
         }
       },
+      childRoutes: [
+        {
+          path: `/${locale}/dept`,
+          childRoutes: [
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Dept/List" */ './routes/Dept/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/dept/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Dept/List', err));
+                } else {
+                  registerModel(app, require('./models/dept/list'));
+                  cb(null, require('./routes/Dept/List'));
+                }
+              },
+            },
+          ],
+        },
+      ],
     },
   ];
 }

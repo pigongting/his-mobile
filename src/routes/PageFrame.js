@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'dva/router';
 import { connect } from 'dva';
 
-import styles from './PageFrame.less';
-
 class PageFrame extends React.Component {
   constructor(props) {
     super(props);

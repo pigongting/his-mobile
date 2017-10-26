@@ -14,7 +14,7 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>123</div>
+      <div className={styles.aaa}>123</div>
     );
   }
 }

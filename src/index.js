@@ -9,7 +9,7 @@ import Loading from 'dva-loading';
 // onAction: [createLogger()]
 
 // 性能分析
-import Perf from 'react-addons-perf';
+// import Perf from 'react-addons-perf';
 
 // 处理 onError 的函数
 import { onError } from './utils/requesterror';
@@ -18,7 +18,7 @@ import { onError } from './utils/requesterror';
 import '../public/index.html';
 
 // 性能分析
-window.Perf = Perf;
+// window.Perf = Perf;
 
 // 1. Initialize
 const app = dva({
