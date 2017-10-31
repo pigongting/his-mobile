@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'dva/router';
 import { connect } from 'dva';
 
 class PageFrame extends React.Component {

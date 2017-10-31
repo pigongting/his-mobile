@@ -35,14 +35,18 @@ class DeptList extends React.Component {
     const { hospitalDeptId } = res;
 
     return (
-      <Flex>
-        <ul className={styles.oneLevel}>
-          {hospitalDeptId && hospitalDeptId.map((item, index) => <li key={index} onClick={() => this.loadTwoLevel(hospitalDeptId, index)}>{item.label}</li>)}
-        </ul>
-        <Flex.Item className={styles.twoLevel}>
-          {twoLevelList && twoLevelList.map(item => <Link key={item.value} to={`/${this.props.locale}/doctor/list?id=${item.value}`}>{item.label}</Link>)}
-        </Flex.Item>
-      </Flex>
+      <div className={styles.pageCommon}>
+        <Flex>
+          <ul className={styles.oneLevel}>
+            {hospitalDeptId && hospitalDeptId.map((item, index) => <li key={index} onClick={() => this.loadTwoLevel(hospitalDeptId, index)}>{item.label}</li>)}
+          </ul>
+          <Flex.Item>
+            <div className={styles.twoLevel}>
+              {twoLevelList && twoLevelList.map(item => <Link key={item.value} to={`/${this.props.locale}/doctor/list?id=${item.value}`}>{item.label}</Link>)}
+            </div>
+          </Flex.Item>
+        </Flex>
+      </div>
     );
   }
 }
