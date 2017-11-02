@@ -30,3 +30,6 @@ import 'antd-mobile/lib/white-space';
 // /* antd-mobile style */
 import 'antd-mobile/lib/flex/style';
 import 'antd-mobile/lib/white-space/style';
+import 'antd-mobile/lib/pull-to-refresh/style';
+import 'antd-mobile/lib/list-view/style';
+import 'antd-mobile/lib/badge/style';

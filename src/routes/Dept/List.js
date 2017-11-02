@@ -12,6 +12,7 @@ class DeptList extends React.Component {
     super(props);
 
     this.state = {
+      oneLevelChoose: 0,
       twoLevelList: [],
     };
   }
@@ -21,31 +22,33 @@ class DeptList extends React.Component {
     const { res } = this.props.pagedata;
 
     if (nextres.hospitalDeptId && nextres.hospitalDeptId[0] && (nextres.hospitalDeptId !== res.hospitalDeptId)) {
-      this.setState(update(this.state, { twoLevelList: { $set: nextres.hospitalDeptId[0].children } }));
+      this.setState(update(this.state, {
+        oneLevelChoose: { $set: 0 },
+        twoLevelList: { $set: nextres.hospitalDeptId[0].children },
+      }));
     }
   }
 
   loadTwoLevel(hospitalDeptId, i) {
-    this.setState(update(this.state, { twoLevelList: { $set: hospitalDeptId[i].children } }));
+    this.setState(update(this.state, {
+      oneLevelChoose: { $set: i },
+      twoLevelList: { $set: hospitalDeptId[i].children },
+    }));
   }
 
   render() {
-    const { twoLevelList } = this.state;
+    const { oneLevelChoose, twoLevelList } = this.state;
     const { res } = this.props.pagedata;
     const { hospitalDeptId } = res;
 
     return (
       <div className={styles.pageCommon}>
-        <Flex>
-          <ul className={styles.oneLevel}>
-            {hospitalDeptId && hospitalDeptId.map((item, index) => <li key={index} onClick={() => this.loadTwoLevel(hospitalDeptId, index)}>{item.label}</li>)}
-          </ul>
-          <Flex.Item>
-            <div className={styles.twoLevel}>
-              {twoLevelList && twoLevelList.map(item => <Link key={item.value} to={`/${this.props.locale}/doctor/list?id=${item.value}`}>{item.label}</Link>)}
-            </div>
-          </Flex.Item>
-        </Flex>
+        <ul className={styles.oneLevel}>
+          {hospitalDeptId && hospitalDeptId.map((item, index) => <li key={index} className={cs((oneLevelChoose === index) ? styles.choose : '')} onClick={() => this.loadTwoLevel(hospitalDeptId, index)}><nobr>{item.label}</nobr></li>)}
+        </ul>
+        <div className={styles.twoLevel}>
+          {twoLevelList && twoLevelList.map(item => <Link key={item.value} to={`/${this.props.locale}/doctor/list?id=${item.value}`}><nobr>{item.label}</nobr></Link>)}
+        </div>
       </div>
     );
   }

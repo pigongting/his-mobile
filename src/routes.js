@@ -47,6 +47,27 @@ function Routes(locale, app) {
             },
           ],
         },
+        {
+          path: `/${locale}/doctor`,
+          childRoutes: [
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Doctor/List" */ './routes/Doctor/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/doctor/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Doctor/List', err));
+                } else {
+                  registerModel(app, require('./models/doctor/list'));
+                  cb(null, require('./routes/Doctor/List'));
+                }
+              },
+            },
+          ],
+        },
       ],
     },
   ];

@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import * as fetch from '../services/dept/list';
+import * as fetch from '../services/dept';
 
 /* 列出全部级别数据 */
 export function *fetchDeptTreeData(action, { call, put, select }, namespace) {

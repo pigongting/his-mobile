@@ -1,5 +1,5 @@
-import request from '../../utils/request';
-import { apiPrefix, apiNexfix } from '../config';
+import request from '../utils/request';
+import { apiPrefix, apiNexfix } from './config';
 
 /* 插入 */
 export function insertRow(action, config, options) {}
