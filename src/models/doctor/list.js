@@ -1,11 +1,17 @@
 import update from 'immutability-helper';
-import { fetchDeptAllData, updateDeptAllData } from '../../reducers/doctor';
+import { fetchDoctorAllData, fetchNextNoTime, updateDoctorAllData, updateNextNoTime } from '../../reducers/doctor';
 import { removelocal } from '../../utils/localpath';
 
 const pagespace = 'doctorlist';
 const pagepath = '/doctor/list';
 const initstate = {
-  res: {},
+  req: {},
+  res: {
+    nextNumber: {
+      outNoTime: null,
+      nextNoTime: null,
+    },
+  },
 };
 
 export default {
@@ -16,18 +22,23 @@ export default {
 
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
-    updateDeptAllData,
+    saveID: (state, action) => { return update(state, { req: { deptid: { $set: action.payload } } }); },
+    updateDoctorAllData,
+    updateNextNoTime,
   },
 
   effects: {
-    fetchDeptAllData: (action, { call, put, select }) => fetchDeptAllData(action, { call, put, select }, pagespace),
+    fetchDoctorAllData: (action, { call, put, select }) => fetchDoctorAllData(action, { call, put, select }, pagespace),
+    fetchNextNoTime: (action, { call, put, select }) => fetchNextNoTime(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (removelocal(pathname) === pagepath) {
-          dispatch({ type: 'fetchDeptAllData', payload: query.id });
+          dispatch({ type: 'saveID', payload: query.id });
+          dispatch({ type: 'fetchDoctorAllData', payload: query.id });
+          dispatch({ type: 'fetchNextNoTime', payload: query.id });
         } else {
           dispatch({ type: 'resetstate' });
         }

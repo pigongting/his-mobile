@@ -33,3 +33,6 @@ import 'antd-mobile/lib/white-space/style';
 import 'antd-mobile/lib/pull-to-refresh/style';
 import 'antd-mobile/lib/list-view/style';
 import 'antd-mobile/lib/badge/style';
+import 'antd-mobile/lib/grid/style';
+import 'antd-mobile/lib/drawer/style';
+

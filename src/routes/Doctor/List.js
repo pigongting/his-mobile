@@ -41,14 +41,21 @@ class DoctorList extends React.Component {
     }
   }
 
+  onEndReached = (event) => {
+    console.log(event);
+  }
+
   render() {
+    const { deptid } = this.props.pagedata.req;
+    const { nextNumber } = this.props.pagedata.res;
+
     const row = (rowData, sectionID, rowID) => {
       console.log(rowData);
       return (
-        <div key={rowID} className={styles.docterItem}>
+        <Link key={rowID} className={styles.docterItem} to={`/${this.props.locale}/doctor/homepage?id=${rowData.doctorId}&deptid=${deptid}`}>
           <Flex align="start">
             <div className={styles.docterPhotoSide}>
-              <i style={{ backgroundImage: (rowData.imageUrl) ? `url(${rowData.imageUrl})` : 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509623234386&di=e1a632f5fdb290f7b8ef47977e8d7217&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F21%2F63%2F95%2F37e58PICAhF_1024.jpg)' }} />
+              <i style={{ backgroundImage: (rowData.imageUrl) ? `url(${rowData.imageUrl})` : 'url(/assets/img/doctorPhoto.png)' }} />
             </div>
             <Flex.Item>
               <Flex>
@@ -65,7 +72,7 @@ class DoctorList extends React.Component {
                     </div>
                   :
                     <div>
-                      <div>{rowData.schDate}</div>
+                      <div className={styles.schDate}><span>下轮放号：</span>{nextNumber.outNoTime ? moment(nextNumber.outNoTime).format('MM/DD HH:mm') : '查询中...'}</div>
                       <div className={styles.noneNumber}><Badge text="无号" /></div>
                     </div>
                 }
@@ -73,16 +80,22 @@ class DoctorList extends React.Component {
               <div className={styles.doctorIntro}>{rowData.intro}</div>
             </Flex.Item>
           </Flex>
-        </div>
+        </Link>
       );
     };
 
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={row}
-        useBodyScroll={this.state.useBodyScroll}
-      />
+      <div>
+        <div className={styles.nextNumber}>下轮放号{nextNumber.outNoTime ? `(${moment(nextNumber.outNoTime).format('YYYY年MM月DD日')}号源)：${moment(nextNumber.nextNoTime).format('MM/DD HH:mm')}` : '(查询中...)'}</div>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={row}
+          useBodyScroll={this.state.useBodyScroll}
+          pageSize={4}
+          onEndReached={this.onEndReached}
+        />
+        <div className={styles.dataOver}>数据加载完毕</div>
+      </div>
     );
   }
 }

@@ -66,6 +66,22 @@ function Routes(locale, app) {
                 }
               },
             },
+            {
+              path: 'homepage',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Doctor/HomePage" */ './routes/Doctor/HomePage')
+                  .then((data) => {
+                    registerModel(app, require('./models/doctor/homepage'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Doctor/HomePage', err));
+                } else {
+                  registerModel(app, require('./models/doctor/homepage'));
+                  cb(null, require('./routes/Doctor/HomePage'));
+                }
+              },
+            },
           ],
         },
       ],

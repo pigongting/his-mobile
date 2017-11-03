@@ -8,7 +8,13 @@ export function deleteRow(action, config, options) {}
 /* 更新 */
 export function updateRow(action, config, options) {}
 /* 查看 */
-export function viewedRow(action, config, options) {}
+export function viewedRow(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}doctor/getDoctorInfo${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
 /* 列出分页数据 */
 export function listPageData(action, config, options) {}
 /* 列出全部数据 */
@@ -23,3 +29,27 @@ export function listAllData(action, config, options) {
 export function listTreeData(action, config, options) {}
 /* 列出指定级别数据 */
 export function listOneLevelData(action, config, options) {}
+/* 获取下轮放号时间 */
+export function getNextNoTime(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}deptNextNoTime/getDeptNextNoTimeById${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 获取有号日期 */
+export function getHaveNoDate(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}doctorSch/getDoctorSchByDoctor${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 获取号码时间段 */
+export function getNoTimeSlot(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}doctorSch/getDoctorSchDetail${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
