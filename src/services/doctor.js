@@ -53,3 +53,27 @@ export function getNoTimeSlot(action, config, options) {
     body: options,
   });
 }
+/* 获取预约确认信息 */
+export function getOrderConfirm(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}doctorSch/getDoctorSchConfirm${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 提交预约确认信息 */
+export function submitOrderConfirm(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}guaHaoPre/getGuahaoReturnId${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 预约详情 */
+export function getOrderDetail(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}guaHaoPre/getGuaHaoPreById${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}

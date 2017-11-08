@@ -35,4 +35,12 @@ import 'antd-mobile/lib/list-view/style';
 import 'antd-mobile/lib/badge/style';
 import 'antd-mobile/lib/grid/style';
 import 'antd-mobile/lib/drawer/style';
+import 'antd-mobile/lib/button/style';
+import 'antd-mobile/lib/list/style';
+import 'antd-mobile/lib/input-item/style';
+import 'antd-mobile/lib/tabs/style';
+import 'antd-mobile/lib/notice-bar/style';
+import 'antd-mobile/lib/picker/style';
+import 'antd-mobile/lib/date-picker/style';
+import 'antd-mobile/lib/switch/style';
 

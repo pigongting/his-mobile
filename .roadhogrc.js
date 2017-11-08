@@ -1,4 +1,3 @@
-import PxToRem from 'postcss-pxtorem';
 import path from 'path';
 
 export default {
@@ -12,12 +11,6 @@ export default {
   svgSpriteDirs: [
     require.resolve('antd-mobile').replace(/warn\.js$/, ''),
     path.resolve(__dirname, 'public'),
-  ],
-  extraPostCSSPlugins: [
-    PxToRem({
-      rootValue: 100,
-      propWhiteList: [],
-    }),
   ],
   devServer: {
     disableHostCheck: true

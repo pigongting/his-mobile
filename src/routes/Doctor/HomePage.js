@@ -14,17 +14,23 @@ moment.locale('zh-cn');
 class DoctorHomePage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      draweropen: true,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     const { res: nextres } = nextProps.pagedata;
     const { res } = this.props.pagedata;
 
-    if (nextres.rows && nextres.rows !== res.rows) {
-      // this.setState({
-      //   dataSource: this.state.dataSource.cloneWithRows(nextres.rows),
-      // });
+    if (nextres.timeslot) {
+      this.setState({ draweropen: true });
     }
+  }
+
+  switchDrawer = (open) => {
+    this.setState({ draweropen: open });
   }
 
   render() {
@@ -80,30 +86,52 @@ class DoctorHomePage extends React.Component {
             </div>
           }
         </div>
-        {timeslot ?
+        {timeslot && this.state.draweropen ?
           <div>
             <Drawer
-              className={styles.timeSlotDrawer}
+              open={this.state.draweropen}
               position="right"
+              className={styles.timeSlotDrawer}
               style={{ minHeight: document.documentElement.clientHeight }}
-              enableDragHandle
-              contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
+              contentStyle={{ color: 'transparent', textAlign: 'center', paddingTop: 42 }}
+              onOpenChange={this.switchDrawer}
               sidebar={
                 <div className={styles.timeSlot}>
-                  <div className={styles.timeSlotTitle}>{moment(chosedate).format('MM/DD')}</div>
+                  <div className={styles.timeSlotTitle}>{moment(chosedate).format('MM月DD日')}</div>
                   {timeslot.am ?
                     <div>
                       <div className={styles.timeSlotSubTitle}>上午</div>
                       {timeslot.am.map((item, index) => {
                         return (
-                          <div key={index} className={styles.timeSlotItem}>{item.startTime}</div>
+                          <Link key={item.doctorSchId} className={styles.timeSlotItem} to={`/${this.props.locale}/doctor/orderconfirm?id=${item.doctorSchId}`}>
+                            <Flex>
+                              <div className={styles.timeSlotTwo}>{moment(item.startTime).format('HH:mm')}~{moment(item.endTime).format('HH:mm')}</div>
+                              <Flex.Item className={styles.timeSlotFee}>&yen;{item.ghFee}</Flex.Item>
+                              <div className={styles.timeSlotSurplus}>余号：{item.totalCount - item.actualCount}</div>
+                            </Flex>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  : null}
+                  {timeslot.pm ?
+                    <div>
+                      <div className={styles.timeSlotSubTitle}>下午</div>
+                      {timeslot.pm.map((item, index) => {
+                        return (
+                          <Link key={item.doctorSchId} className={styles.timeSlotItem}>
+                            <Flex>
+                              <div className={styles.timeSlotTwo}>{moment(item.startTime).format('HH:mm')}~{moment(item.endTime).format('HH:mm')}</div>
+                              <Flex.Item className={styles.timeSlotFee}>&yen;{item.ghFee}</Flex.Item>
+                              <div className={styles.timeSlotSurplus}>余号：{item.totalCount - item.actualCount}</div>
+                            </Flex>
+                          </Link>
                         );
                       })}
                     </div>
                   : null}
                 </div>
               }
-              open
             >0</Drawer>
           </div>
         : null}

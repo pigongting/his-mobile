@@ -1,0 +1,77 @@
+.stateBar {
+  height: 142px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 35px;
+
+  .iconSide {
+    padding: 0 14px 0 30px;
+    line-height: 0;
+  }
+}
+
+.infoList {
+  
+  :global(.am-list-item .am-list-line .am-list-content) {
+    font-size: 30px;
+  }
+
+  :global(.am-list-item .am-list-line .am-list-extra) {
+    font-size: 30px;
+    -ms-flex-preferred-size: 70%;
+    flex-basis: 70%;
+  }
+}
+
+.tips {
+  margin: 0;
+  padding: 0 0 144px 0;
+
+  dt {
+    padding: 30px 30px 18px 30px;
+    font-size: 28px;
+    color: #888;
+  }
+
+  dd {
+    margin: 0;
+    padding: 0 30px;
+
+    p {
+      margin: 0;
+      padding: 0 0 18px 0;
+      font-size: 30px;
+      line-height: 1.5;
+      color: #656565;
+    }
+  }
+}
+
+.actionBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  padding: 22px 30px;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+  line-height: 0;
+
+  :global(.am-button-small) {
+    font-size: 28px;
+    height: 56px;
+    line-height: 56px;
+    padding: 0 20px;
+    border-radius: 4px;
+
+    &:before {
+      border-color: #b9b9b9 !important;
+      border-radius: 4px !important;
+    }
+  }
+}
+
+
+
+

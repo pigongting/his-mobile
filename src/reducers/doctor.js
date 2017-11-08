@@ -82,6 +82,33 @@ export function *fetchHaveNoDate(action, { call, put, select }, namespace) {
   });
 }
 
+/* 获取预约确认信息 */
+export function *fetchOrderConfirm(action, { call, put, select }, namespace) {
+  const { data } = yield call(fetch.getOrderConfirm, { errormsg: '预约确认信息加载失败', ...action }, {}, {
+    doctorSchId: action.payload,
+  });
+  yield put({ type: 'updateOrderConfirm', payload: data });
+}
+
+/* 提交预约确认信息 */
+export function *submitOrderConfirm(action, { call, put, select }, namespace) {
+  const { data } = yield call(fetch.submitOrderConfirm, { errormsg: '预约确认信息提交失败', ...action }, {}, action.payload);
+
+  if (data.errorCode === 0) {
+    yield put({ type: 'updateOrderID', payload: data.guaHaoId });
+  } else {
+    console.log('挂号失败');
+  }
+}
+
+/* 提交预约确认信息 */
+export function *fetchOrderDetail(action, { call, put, select }, namespace) {
+  const { data } = yield call(fetch.getOrderDetail, { errormsg: '预约详情加载失败', ...action }, {}, {
+    guaHaoPreId: action.payload,
+  });
+  yield put({ type: 'updateOrderDetail', payload: data });
+}
+
 /* 更新分页数据 */
 export function updateDoctorAllData(state, action) {
   return update(state, { res: { rows: { $set: action.payload } } });
@@ -102,7 +129,22 @@ export function updateNoTimeSlot(state, action) {
   return update(state, { res: { timeslot: { $set: action.payload } } });
 }
 
+/* 更新预约确认信息 */
+export function updateOrderConfirm(state, action) {
+  return update(state, { res: { confirminfo: { $set: action.payload } } });
+}
+
+/* 更新预约ID */
+export function updateOrderID(state, action) {
+  return update(state, { res: { orderid: { $set: action.payload } } });
+}
+
 /* 更新医生信息 */
 export function updateDoctorInfo(state, action) {
   return update(state, { res: { doctor: { $set: action.payload } } });
+}
+
+/* 更新预约详情 */
+export function updateOrderDetail(state, action) {
+  return update(state, { res: { orderdetail: { $set: action.payload } } });
 }

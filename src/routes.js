@@ -82,6 +82,75 @@ function Routes(locale, app) {
                 }
               },
             },
+            {
+              path: 'orderconfirm',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Doctor/OrderConfirm" */ './routes/Doctor/OrderConfirm')
+                  .then((data) => {
+                    registerModel(app, require('./models/doctor/orderconfirm'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Doctor/OrderConfirm', err));
+                } else {
+                  registerModel(app, require('./models/doctor/orderconfirm'));
+                  cb(null, require('./routes/Doctor/OrderConfirm'));
+                }
+              },
+            },
+            {
+              path: 'orderdetail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Doctor/OrderDetail" */ './routes/Doctor/OrderDetail')
+                  .then((data) => {
+                    registerModel(app, require('./models/doctor/orderdetail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Doctor/OrderDetail', err));
+                } else {
+                  registerModel(app, require('./models/doctor/orderdetail'));
+                  cb(null, require('./routes/Doctor/OrderDetail'));
+                }
+              },
+            },
+          ],
+        },
+        {
+          path: `/${locale}/visitmen`,
+          childRoutes: [
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "VisitMen/List" */ './routes/VisitMen/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/visitmen/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load VisitMen/List', err));
+                } else {
+                  registerModel(app, require('./models/visitmen/list'));
+                  cb(null, require('./routes/VisitMen/List'));
+                }
+              },
+            },
+            {
+              path: 'detail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "VisitMen/Detail" */ './routes/VisitMen/Detail')
+                  .then((data) => {
+                    registerModel(app, require('./models/visitmen/detail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load VisitMen/Detail', err));
+                } else {
+                  registerModel(app, require('./models/visitmen/detail'));
+                  cb(null, require('./routes/VisitMen/Detail'));
+                }
+              },
+            },
           ],
         },
       ],
