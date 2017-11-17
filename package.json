@@ -33,7 +33,7 @@
     "install-node": "6.9.2"
   },
   "dependencies": {
-    "antd-mobile": "^2.0.1",
+    "antd-mobile": "^2.0.3",
     "antd-mobile-demo-data": "^0.1.4",
     "axios": "^0.16.2",
     "babel-runtime": "^6.9.2",

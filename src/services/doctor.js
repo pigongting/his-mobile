@@ -29,6 +29,14 @@ export function listAllData(action, config, options) {
 export function listTreeData(action, config, options) {}
 /* 列出指定级别数据 */
 export function listOneLevelData(action, config, options) {}
+/* 列出用户挂号数据 */
+export function listGuaHaoPre(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}guaHaoPre/getGuaHaoPreByUserId${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
 /* 获取下轮放号时间 */
 export function getNextNoTime(action, config, options) {
   return request(action, config, {
@@ -73,6 +81,14 @@ export function submitOrderConfirm(action, config, options) {
 export function getOrderDetail(action, config, options) {
   return request(action, config, {
     Url: `${apiPrefix}guaHaoPre/getGuaHaoPreById${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
+/* 取消挂号 */
+export function cancelGuaHaoPre(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}guaHaoPre/cancelGuaHaoPre${apiNexfix}`,
     method: 'POST',
     body: options,
   });

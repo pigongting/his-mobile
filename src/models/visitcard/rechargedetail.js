@@ -1,9 +1,10 @@
 import update from 'immutability-helper';
-import { fetchVisitMenAllData, updateVisitMenAllData } from '../../reducers/visitmen';
+import moment from 'moment';
+import { fetchViewedRow, updateViewedRow } from '../../reducers/visitcardrecharge';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'visitmenlist';
-const pagepath = '/visitmen/list';
+const pagespace = 'visitcardrechargedetail';
+const pagepath = '/visitcard/rechargedetail';
 const initstate = {
   req: {},
   res: {},
@@ -18,23 +19,22 @@ export default {
 
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
-    saveFrom: (state, action) => { return update(state, { set: { from: { $set: action.payload } } }); },
-    updateVisitMenAllData,
+    saveID: (state, action) => { return update(state, { set: { id: { $set: action.payload } } }); },
+    updateViewedRow,
   },
 
   effects: {
-    fetchVisitMenAllData: (action, { call, put, select }) => fetchVisitMenAllData(action, { call, put, select }, pagespace),
+    fetchViewedRow: (action, { call, put, select }) => fetchViewedRow(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (removelocal(pathname) === pagepath) {
-          if (query.from) {
-            dispatch({ type: 'saveFrom', payload: query.from });
+          if (query.id) {
+            dispatch({ type: 'saveID', payload: query.id });
+            dispatch({ type: 'fetchViewedRow', payload: query.id });
           }
-
-          dispatch({ type: 'fetchVisitMenAllData' });
         } else {
           dispatch({ type: 'resetstate' });
         }

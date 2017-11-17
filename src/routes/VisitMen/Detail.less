@@ -1,7 +1,66 @@
-.tabsWarp {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+.visitcardNoBind {
+  :global(.am-list-line) {
+    &:after {
+      display: none !important;
+    }
+  }
 
+  :global(.am-list-item) {
+    background-color: transparent;
+  }
+
+  :global(.am-list-line .am-list-content) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  :global(.am-flexbox .am-flexbox-item) {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .buttonWarp {
+    padding: 0 0 0 10px;
+
+    :global(.am-button) {
+      padding: 0 16px;
+      height: 46px;
+      line-height: 46px;
+    }
+  }
+
+  .tips {
+    padding: 10px 0 0 0;
+    font-size: 12px;
+    text-align: center;
+    color: #656565;
+
+    span {
+      color: #f76a24;
+    }
+  }
+}
+
+.visitcardBind {
+  :global(.am-list-line .am-list-content) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .visitNo {
+    text-align: center;
+    font-size: 30px;
+    color: #108ee9;
+  }
+
+  .buttonWarp {
+    padding-top: 10px;
+    text-align: center;
+    line-height: 0;
+  }
+}
+
+.visitmen {
   :global(.am-list-item .am-input-label) {
     font-size: 15px;
     color: #656565;
@@ -14,6 +73,11 @@
   :global(.am-list-item .am-input-control input) {
     font-size: 15px;
     text-align: right;
+  }
+
+  :global(.am-list-item .am-input-control input:disabled) {
+    color: #000;
+    opacity: 1;
   }
 
   :global(.am-list-item .am-input-control .fake-input-container .fake-input) {
@@ -34,4 +98,15 @@
     color: #bbb;
   }
 
+  :global(.am-list-item.error .am-input-label) {
+    color: #ff5b05;
+  }
+
+  :global(.am-list-item.error .am-list-line .am-list-content) {
+    color: #ff5b05;
+  }
+
+  .submitButton {
+    padding: 20px 15px 40px 15px;
+  }
 }

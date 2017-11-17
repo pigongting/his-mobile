@@ -27,6 +27,27 @@ function Routes(locale, app) {
       },
       childRoutes: [
         {
+          path: `/${locale}/hospital`,
+          childRoutes: [
+            {
+              path: 'article',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Hospital/Article" */ './routes/Hospital/Article')
+                  .then((data) => {
+                    registerModel(app, require('./models/hospital/article'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Hospital/Article', err));
+                } else {
+                  registerModel(app, require('./models/hospital/article'));
+                  cb(null, require('./routes/Hospital/Article'));
+                }
+              },
+            },
+          ],
+        },
+        {
           path: `/${locale}/dept`,
           childRoutes: [
             {
@@ -42,6 +63,22 @@ function Routes(locale, app) {
                 } else {
                   registerModel(app, require('./models/dept/list'));
                   cb(null, require('./routes/Dept/List'));
+                }
+              },
+            },
+            {
+              path: 'article',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Dept/Article" */ './routes/Dept/Article')
+                  .then((data) => {
+                    registerModel(app, require('./models/dept/article'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Dept/Article', err));
+                } else {
+                  registerModel(app, require('./models/dept/article'));
+                  cb(null, require('./routes/Dept/Article'));
                 }
               },
             },
@@ -99,6 +136,22 @@ function Routes(locale, app) {
               },
             },
             {
+              path: 'orderlist',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Doctor/OrderList" */ './routes/Doctor/OrderList')
+                  .then((data) => {
+                    registerModel(app, require('./models/doctor/orderlist'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Doctor/OrderList', err));
+                } else {
+                  registerModel(app, require('./models/doctor/orderlist'));
+                  cb(null, require('./routes/Doctor/OrderList'));
+                }
+              },
+            },
+            {
               path: 'orderdetail',
               getComponent(nextState, cb) {
                 if (process.env.NODE_ENV === 'development') {
@@ -148,6 +201,96 @@ function Routes(locale, app) {
                 } else {
                   registerModel(app, require('./models/visitmen/detail'));
                   cb(null, require('./routes/VisitMen/Detail'));
+                }
+              },
+            },
+          ],
+        },
+        {
+          path: `/${locale}/visitcard`,
+          childRoutes: [
+            {
+              path: 'recharge',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "VisitCard/Recharge" */ './routes/VisitCard/Recharge')
+                  .then((data) => {
+                    registerModel(app, require('./models/visitcard/recharge'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load VisitCard/Recharge', err));
+                } else {
+                  registerModel(app, require('./models/visitcard/recharge'));
+                  cb(null, require('./routes/VisitCard/Recharge'));
+                }
+              },
+            },
+            {
+              path: 'rechargerecord',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "VisitCard/RechargeRecord" */ './routes/VisitCard/RechargeRecord')
+                  .then((data) => {
+                    registerModel(app, require('./models/visitcard/rechargerecord'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load VisitCard/RechargeRecord', err));
+                } else {
+                  registerModel(app, require('./models/visitcard/rechargerecord'));
+                  cb(null, require('./routes/VisitCard/RechargeRecord'));
+                }
+              },
+            },
+            {
+              path: 'rechargedetail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "VisitCard/RechargeDetail" */ './routes/VisitCard/RechargeDetail')
+                  .then((data) => {
+                    registerModel(app, require('./models/visitcard/rechargedetail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load VisitCard/RechargeDetail', err));
+                } else {
+                  registerModel(app, require('./models/visitcard/rechargedetail'));
+                  cb(null, require('./routes/VisitCard/RechargeDetail'));
+                }
+              },
+            },
+          ],
+        },
+        {
+          path: `/${locale}/report`,
+          childRoutes: [
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Report/List" */ './routes/Report/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/report/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Report/List', err));
+                } else {
+                  registerModel(app, require('./models/report/list'));
+                  cb(null, require('./routes/Report/List'));
+                }
+              },
+            },
+            {
+              path: 'detail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "Report/Detail" */ './routes/Report/Detail')
+                  .then((data) => {
+                    registerModel(app, require('./models/report/detail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load Report/Detail', err));
+                } else {
+                  registerModel(app, require('./models/report/detail'));
+                  cb(null, require('./routes/Report/Detail'));
                 }
               },
             },

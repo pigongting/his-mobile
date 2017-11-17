@@ -1,9 +1,9 @@
 import update from 'immutability-helper';
-import { fetchVisitMenAllData, updateVisitMenAllData } from '../../reducers/visitmen';
+import { fetchAllData, updateAllData } from '../../reducers/map';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'visitmenlist';
-const pagepath = '/visitmen/list';
+const pagespace = 'deptarticle';
+const pagepath = '/dept/article';
 const initstate = {
   req: {},
   res: {},
@@ -18,23 +18,25 @@ export default {
 
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
-    saveFrom: (state, action) => { return update(state, { set: { from: { $set: action.payload } } }); },
-    updateVisitMenAllData,
+    updateBuildingArray: (state, action) => {
+      return update(state, {
+        res: {
+          idTypeArray: { $set: action.payload },
+        },
+      });
+    },
+    updateAllData,
   },
 
   effects: {
-    fetchVisitMenAllData: (action, { call, put, select }) => fetchVisitMenAllData(action, { call, put, select }, pagespace),
+    fetchAllData: (action, { call, put, select }) => fetchAllData(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (removelocal(pathname) === pagepath) {
-          if (query.from) {
-            dispatch({ type: 'saveFrom', payload: query.from });
-          }
-
-          dispatch({ type: 'fetchVisitMenAllData' });
+          dispatch({ type: 'fetchAllData' });
         } else {
           dispatch({ type: 'resetstate' });
         }

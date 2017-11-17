@@ -13,6 +13,8 @@ import styles from './OrderDetail.less';
 
 moment.locale('zh-cn');
 
+const pagespace = 'doctororderdetail';
+
 class DoctorOrderDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -60,9 +62,12 @@ class DoctorOrderDetail extends React.Component {
                 <p>2.如需取消预约，请在就诊日前一天16:30，就诊当天上午11:30前可取消下午的预约号前操作。</p>
               </dd>
             </dl>
-            <div className={styles.actionBar}>
-              <Button inline size="small" onClick={() => this.props.handleCancel(this)}>取消预约</Button>
-            </div>
+            {
+              orderdetail.dealwithStatus === 1 &&
+              <div className={styles.actionBar}>
+                <Button inline size="small" onClick={() => this.props.handleCancel(this)}>取消预约</Button>
+              </div>
+            }
           </div>
         : null}
       </div>
@@ -73,15 +78,19 @@ class DoctorOrderDetail extends React.Component {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleCancel: (t) => {
-      console.log(t);
+      dispatch({
+        type: `${pagespace}/fetchCancelGuaHaoPre`,
+        that: t,
+        payload: t.props.pagedata.req.doctorSchId,
+      });
     },
   };
 }
 
 function mapStateToProps(state, ownProps) {
   return {
-    loading: state.loading.effects['doctororderdetail/fetchs'],
-    pagedata: state.doctororderdetail,
+    loading: state.loading.effects[`${pagespace}/fetchs`],
+    pagedata: state[pagespace],
     locale: state.ssr.locale,
   };
 }

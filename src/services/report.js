@@ -2,27 +2,15 @@ import request from '../utils/request';
 import { apiPrefix, apiNexfix } from './config';
 
 /* 插入 */
-export function insertRow(action, config, options) {
-  return request(action, config, {
-    Url: `${apiPrefix}user/insertUser${apiNexfix}`,
-    method: 'POST',
-    body: options,
-  });
-}
+export function insertRow(action, config, options) {}
 /* 删除 */
-export function deleteRow(action, config, options) {
-  return request(action, config, {
-    Url: `${apiPrefix}user/deleteUser${apiNexfix}`,
-    method: 'POST',
-    body: options,
-  });
-}
+export function deleteRow(action, config, options) {}
 /* 更新 */
 export function updateRow(action, config, options) {}
 /* 查看 */
 export function viewedRow(action, config, options) {
   return request(action, config, {
-    Url: `${apiPrefix}user/getUserById${apiNexfix}`,
+    Url: `${apiPrefix}reportDetail/getReportDetailById${apiNexfix}`,
     method: 'POST',
     body: options,
   });
@@ -32,7 +20,7 @@ export function listPageData(action, config, options) {}
 /* 列出全部数据 */
 export function listAllData(action, config, options) {
   return request(action, config, {
-    Url: `${apiPrefix}user/getUserBySysUserId${apiNexfix}`,
+    Url: `${apiPrefix}reportDetail/getReportList${apiNexfix}`,
     method: 'POST',
     body: options,
   });

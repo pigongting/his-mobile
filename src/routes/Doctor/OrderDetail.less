@@ -1,11 +1,19 @@
 .stateBar {
-  height: 142px;
+  position: relative;
+  height: 71px;
+  font-size: 18px;
   background: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 35px;
+  border-bottom: 1px solid #ddd;
+
+  @media (min-resolution: 2dppx) {
+    & { border-bottom: none; }
+    &::before { bottom: 0; right: auto; left: 0; width: 100%; height: 1px; content: ''; position: absolute; background-color: #ddd; display: block; z-index: 1; transform-origin: 50% 50%; transform: scaleY(0.5); }
+  }
+
+  @media (min-resolution: 2dppx) and (min-resolution: 3dppx) { &::before { transform: scaleY(0.33); } }
 
   .iconSide {
-    padding: 0 14px 0 30px;
+    padding: 0 7px 0 15px;
     line-height: 0;
   }
 }
@@ -13,11 +21,11 @@
 .infoList {
   
   :global(.am-list-item .am-list-line .am-list-content) {
-    font-size: 30px;
+    font-size: 15px;
   }
 
   :global(.am-list-item .am-list-line .am-list-extra) {
-    font-size: 30px;
+    font-size: 15px;
     -ms-flex-preferred-size: 70%;
     flex-basis: 70%;
   }
@@ -25,22 +33,22 @@
 
 .tips {
   margin: 0;
-  padding: 0 0 144px 0;
+  padding: 0 0 72px 0;
 
   dt {
-    padding: 30px 30px 18px 30px;
-    font-size: 28px;
+    padding: 15px 15px 9px 15px;
+    font-size: 14px;
     color: #888;
   }
 
   dd {
     margin: 0;
-    padding: 0 30px;
+    padding: 0 15px;
 
     p {
       margin: 0;
-      padding: 0 0 18px 0;
-      font-size: 30px;
+      padding: 0 0 9px 0;
+      font-size: 15px;
       line-height: 1.5;
       color: #656565;
     }
@@ -53,25 +61,29 @@
   right: 0;
   bottom: 0;
   background: #fff;
-  padding: 22px 30px;
+  padding: 11px 15px;
   border-top: 1px solid #e0e0e0;
   text-align: right;
   line-height: 0;
 
+  @media (min-resolution: 2dppx) {
+    & { border-top: none; }
+    &::before { top: 0; right: auto; left: 0; width: 100%; height: 1px; content: ''; position: absolute; background-color: #ddd; display: block; z-index: 1; transform-origin: 50% 50%; transform: scaleY(0.5); }
+  }
+
+  @media (min-resolution: 2dppx) and (min-resolution: 3dppx) { &::before { transform: scaleY(0.33); } }
+
   :global(.am-button-small) {
-    font-size: 28px;
-    height: 56px;
-    line-height: 56px;
-    padding: 0 20px;
-    border-radius: 4px;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    border-radius: 2px;
 
     &:before {
       border-color: #b9b9b9 !important;
-      border-radius: 4px !important;
+      border-radius: 2px !important;
     }
   }
 }
-
-
-
 

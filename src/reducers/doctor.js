@@ -1,5 +1,6 @@
 import update from 'immutability-helper';
 import moment from 'moment';
+import Toast from 'antd-mobile/lib/toast';
 import * as fetch from '../services/doctor';
 
 /* 查看 */
@@ -16,6 +17,14 @@ export function *fetchDoctorAllData(action, { call, put, select }, namespace) {
     hospitalDeptId: action.payload,
   });
   yield put({ type: 'updateDoctorAllData', payload: data });
+}
+
+/* 列出用户挂号数据 */
+export function *fetchGuaHaoPre(action, { call, put, select }, namespace) {
+  const { data } = yield call(fetch.listGuaHaoPre, { errormsg: '医生列表加载失败', ...action }, {}, {
+    userId: 1,
+  });
+  yield put({ type: 'updateGuaHaoPre', payload: data });
 }
 
 /* 获取下轮放号时间 */
@@ -109,6 +118,15 @@ export function *fetchOrderDetail(action, { call, put, select }, namespace) {
   yield put({ type: 'updateOrderDetail', payload: data });
 }
 
+/* 取消预约挂号 */
+export function *fetchCancelGuaHaoPre(action, { call, put, select }, namespace) {
+  const { data } = yield call(fetch.cancelGuaHaoPre, { errormsg: '取消预约失败', ...action }, {}, {
+    guaHaoPreId: action.payload,
+  });
+
+  Toast.success('取消成功 !!!', 1, () => { action.that._reactInternalInstance._context.router.goBack(); });
+}
+
 /* 更新分页数据 */
 export function updateDoctorAllData(state, action) {
   return update(state, { res: { rows: { $set: action.payload } } });
@@ -147,4 +165,9 @@ export function updateDoctorInfo(state, action) {
 /* 更新预约详情 */
 export function updateOrderDetail(state, action) {
   return update(state, { res: { orderdetail: { $set: action.payload } } });
+}
+
+/* 更新用户挂号数据 */
+export function updateGuaHaoPre(state, action) {
+  return update(state, { res: { orderlist: { $set: action.payload } } });
 }

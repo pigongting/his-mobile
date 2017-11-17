@@ -1,0 +1,84 @@
+.visitcardinfoLoading {
+  height: 200px;
+  justify-content: center;
+}
+
+.submitButton {
+  padding: 20px 15px 40px 15px;
+}
+
+.commonList {
+  margin: 10px 0 0 0;
+  
+  :global(.am-list-item .am-list-line .am-list-extra) {
+    color: #108ee9;
+  }
+
+  :global(.am-list-item .am-list-line .am-list-content) {
+    color: #656565;
+  }
+
+  :global(.am-list-item .am-input-label) {
+    color: #656565;
+  }
+}
+
+.visitmenList {
+  :global(.am-list-item .am-list-line .am-list-extra ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.hospitalList {
+  :global(.am-list-item .am-list-line .am-list-extra) {
+    -ms-flex-preferred-size: 60%;
+    flex-basis: 60%;
+  }
+}
+
+.inputMoneyList {
+  :global(.am-list-item .am-input-control input) {
+    text-align: right;
+    color: #108ee9;
+  }
+}
+
+.chooseMoneyList {
+  line-height: 0;
+  
+  :global(.am-button-small) {
+    height: 32px;
+    line-height: 32px;
+    font-size: 15px;
+  }
+
+  :global(.am-flexbox-item:not(:first-child)) {
+    margin-left: 36px;
+  }
+
+  .moneyOneList {
+    padding: 20px 0 0 0;
+  }
+
+  .moneyTwoList {
+    padding: 10px 0 20px 0;
+    
+    :global(.am-button-small) {
+      height: 32px;
+      line-height: 32px;
+      font-size: 15px;
+    }
+
+    :global(.am-flexbox-item:not(:first-child)) {
+      margin-right: 36px;
+    }
+
+    .inputMoney {
+      -webkit-box-flex: 2;
+      -ms-flex: 2;
+      flex: 2;
+    }
+  }
+}

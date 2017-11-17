@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import { fetchOrderDetail, updateOrderDetail } from '../../reducers/doctor';
+import { fetchOrderDetail, updateOrderDetail, fetchCancelGuaHaoPre } from '../../reducers/doctor';
 import { removelocal } from '../../utils/localpath';
 
 const pagespace = 'doctororderdetail';
@@ -24,6 +24,7 @@ export default {
 
   effects: {
     fetchOrderDetail: (action, { call, put, select }) => fetchOrderDetail(action, { call, put, select }, pagespace),
+    fetchCancelGuaHaoPre: (action, { call, put, select }) => fetchCancelGuaHaoPre(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {

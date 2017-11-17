@@ -43,4 +43,8 @@ import 'antd-mobile/lib/notice-bar/style';
 import 'antd-mobile/lib/picker/style';
 import 'antd-mobile/lib/date-picker/style';
 import 'antd-mobile/lib/switch/style';
+import 'antd-mobile/lib/toast/style';
+import 'antd-mobile/lib/result/style';
+import 'antd-mobile/lib/activity-indicator/style';
+import 'antd-mobile/lib/menu/style';
 
