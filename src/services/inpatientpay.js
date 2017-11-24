@@ -10,7 +10,7 @@ export function updateRow(action, config, options) {}
 /* 查看 */
 export function viewedRow(action, config, options) {
   return request(action, config, {
-    Url: `${apiPrefix}hospital/getHospitalById${apiNexfix}`,
+    Url: `${apiPrefix}inpatientOrder/getInpatientOrderById${apiNexfix}`,
     method: 'POST',
     body: options,
   });
@@ -18,8 +18,22 @@ export function viewedRow(action, config, options) {
 /* 列出分页数据 */
 export function listPageData(action, config, options) {}
 /* 列出全部数据 */
-export function listAllData(action, config, options) {}
+export function listAllData(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}inpatientOrder/getInpatientOrderByVisitNo${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}
 /* 列出全部级别数据 */
 export function listTreeData(action, config, options) {}
 /* 列出指定级别数据 */
 export function listOneLevelData(action, config, options) {}
+/* 列出缴费明细 */
+export function listDetailList(action, config, options) {
+  return request(action, config, {
+    Url: `${apiPrefix}inpatientPay/getInpatientPayByOrderId${apiNexfix}`,
+    method: 'POST',
+    body: options,
+  });
+}

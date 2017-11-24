@@ -296,6 +296,165 @@ function Routes(locale, app) {
             },
           ],
         },
+        {
+          path: `/${locale}/outpatientpay`,
+          childRoutes: [
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "OutpatientPay/List" */ './routes/OutpatientPay/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/outpatientpay/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load OutpatientPay/List', err));
+                } else {
+                  registerModel(app, require('./models/outpatientpay/list'));
+                  cb(null, require('./routes/OutpatientPay/List'));
+                }
+              },
+            },
+            {
+              path: 'detail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "OutpatientPay/Detail" */ './routes/OutpatientPay/Detail')
+                  .then((data) => {
+                    registerModel(app, require('./models/outpatientpay/detail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load OutpatientPay/Detail', err));
+                } else {
+                  registerModel(app, require('./models/outpatientpay/detail'));
+                  cb(null, require('./routes/OutpatientPay/Detail'));
+                }
+              },
+            },
+          ],
+        },
+        {
+          path: `/${locale}/inpatientpay`,
+          childRoutes: [
+            {
+              path: 'inputnumber',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/InputNumber" */ './routes/InpatientPay/InputNumber')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/inputnumber'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/InputNumber', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/inputnumber'));
+                  cb(null, require('./routes/InpatientPay/InputNumber'));
+                }
+              },
+            },
+            {
+              path: 'list',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/List" */ './routes/InpatientPay/List')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/list'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/List', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/list'));
+                  cb(null, require('./routes/InpatientPay/List'));
+                }
+              },
+            },
+            {
+              path: 'detail',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/Detail" */ './routes/InpatientPay/Detail')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/detail'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/Detail', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/detail'));
+                  cb(null, require('./routes/InpatientPay/Detail'));
+                }
+              },
+            },
+            {
+              path: 'homepage',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/HomePage" */ './routes/InpatientPay/HomePage')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/homepage'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/HomePage', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/homepage'));
+                  cb(null, require('./routes/InpatientPay/HomePage'));
+                }
+              },
+            },
+            {
+              path: 'deposit',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/Deposit" */ './routes/InpatientPay/Deposit')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/deposit'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/Deposit', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/deposit'));
+                  cb(null, require('./routes/InpatientPay/Deposit'));
+                }
+              },
+            },
+            {
+              path: 'info',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "InpatientPay/Info" */ './routes/InpatientPay/Info')
+                  .then((data) => {
+                    registerModel(app, require('./models/inpatientpay/info'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load InpatientPay/Info', err));
+                } else {
+                  registerModel(app, require('./models/inpatientpay/info'));
+                  cb(null, require('./routes/InpatientPay/Info'));
+                }
+              },
+            },
+          ],
+        },
+        {
+          path: `/${locale}/user`,
+          childRoutes: [
+            {
+              path: 'homepage',
+              getComponent(nextState, cb) {
+                if (process.env.NODE_ENV === 'development') {
+                  import(/* webpackChunkName: "User/HomePage" */ './routes/User/HomePage')
+                  .then((data) => {
+                    registerModel(app, require('./models/user/homepage'));
+                    cb(null, data);
+                  })
+                  .catch(err => console.log('Failed to load User/HomePage', err));
+                } else {
+                  registerModel(app, require('./models/user/homepage'));
+                  cb(null, require('./routes/User/HomePage'));
+                }
+              },
+            },
+          ],
+        },
       ],
     },
   ];

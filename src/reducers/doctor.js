@@ -22,7 +22,7 @@ export function *fetchDoctorAllData(action, { call, put, select }, namespace) {
 /* 列出用户挂号数据 */
 export function *fetchGuaHaoPre(action, { call, put, select }, namespace) {
   const { data } = yield call(fetch.listGuaHaoPre, { errormsg: '医生列表加载失败', ...action }, {}, {
-    userId: 1,
+    visitNo: action.payload,
   });
   yield put({ type: 'updateGuaHaoPre', payload: data });
 }

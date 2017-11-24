@@ -1,10 +1,10 @@
 import update from 'immutability-helper';
 import moment from 'moment';
-import { fetchViewedRow, updateViewedRow } from '../../reducers/hospital';
+import { fetchViewedRow, updateViewedRow, fetchDetailList, updateDetailList } from '../../reducers/outpatientpay';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'hospitalarticle';
-const pagepath = '/hospital/article';
+const pagespace = 'outpatientpaydetail';
+const pagepath = '/outpatientpay/detail';
 const initstate = {
   req: {},
   res: {},
@@ -20,11 +20,14 @@ export default {
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
     saveID: (state, action) => { return update(state, { set: { id: { $set: action.payload } } }); },
+    saveStatus: (state, action) => { return update(state, { set: { status: { $set: action.payload } } }); },
     updateViewedRow,
+    updateDetailList,
   },
 
   effects: {
     fetchViewedRow: (action, { call, put, select }) => fetchViewedRow(action, { call, put, select }, pagespace),
+    fetchDetailList: (action, { call, put, select }) => fetchDetailList(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
@@ -33,6 +36,7 @@ export default {
         if (removelocal(pathname) === pagepath) {
           if (query.id) {
             dispatch({ type: 'saveID', payload: query.id });
+            dispatch({ type: 'saveStatus', payload: query.status });
             dispatch({ type: 'fetchViewedRow', payload: query.id });
           }
         } else {

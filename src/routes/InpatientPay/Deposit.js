@@ -1,4 +1,5 @@
 import cs from 'classnames';
+import moment from 'moment';
 import React from 'react';
 import { connect } from 'dva';
 import { createForm } from 'rc-form';
@@ -9,13 +10,13 @@ import Flex from 'antd-mobile/lib/flex';
 import Result from 'antd-mobile/lib/result';
 import InputItem from 'antd-mobile/lib/input-item';
 import ActivityIndicator from 'antd-mobile/lib/activity-indicator';
-import styles from './Recharge.less';
+import styles from './Deposit.less';
 
-const pagespace = 'visitcardrecharge';
+const pagespace = 'inpatientpaydeposit';
 
 const myImg = src => <img src={src} className="am-icon am-icon-md" alt="" style={{ width: 60, height: 60 }} />;
 
-class VisitCardRecharge extends React.Component {
+class InpatientPayDeposit extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -25,20 +26,9 @@ class VisitCardRecharge extends React.Component {
     this.props.pagedata.pagespace = pagespace;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // const { res: nextres } = nextProps.pagedata;
-    // const { res } = this.props.pagedata;
-
-    // if (nextres.orderlist && nextres.orderlist !== res.orderlist) {
-    //   this.setState({
-    //     dataSource: this.state.dataSource.cloneWithRows(nextres.orderlist),
-    //   });
-    // }
-  }
-
   render() {
     const { no, notips, chooseMoney, visitmen } = this.props.pagedata.set;
-    const { visitcardinfo } = this.props.pagedata.res;
+    const { detail } = this.props.pagedata.res;
     const { getFieldProps } = this.props.form;
 
     return (
@@ -51,27 +41,27 @@ class VisitCardRecharge extends React.Component {
           />
         :
           <div>
-            {visitcardinfo ?
+            {detail ?
               <div>
                 <List className={cs(styles.commonList, styles.visitmenList)}>
-                  <List.Item multipleLine extra={<ul><li>{visitcardinfo.userName}</li><li>{visitcardinfo.visitNo}</li></ul>}>就诊人</List.Item>
+                  <List.Item extra={<ul><li>{detail.userName}</li></ul>}>住院患者</List.Item>
                 </List>
 
                 <List className={cs(styles.commonList, styles.hospitalList)}>
-                  <List.Item extra={visitcardinfo.hospitalName}>医院名称</List.Item>
-                </List>
-
-                <List className={cs(styles.commonList, styles.hospitalList)}>
-                  <List.Item extra={`¥${visitcardinfo.fee || 0}`}>就诊卡余额</List.Item>
+                  <List.Item extra={detail.inpatientNo}>住院号</List.Item>
+                  <List.Item extra={detail.deptName}>科室名</List.Item>
+                  <List.Item extra={moment(detail.inDate).format('YYYY-MM-DD')}>入院日期</List.Item>
+                  <List.Item extra={`¥${detail.inpatientFee.toFixed(2)}`} className="money">总费用</List.Item>
+                  <List.Item extra={`¥${detail.depositLeftFee.toFixed(2)}`} className="money">押金余额</List.Item>
                 </List>
 
                 <List className={cs(styles.commonList, styles.inputMoneyList)}>
-                  <InputItem {...getFieldProps('inputmoney')} labelNumber={7} type="number" placeholder="请输入整数充值金额">输入充值金额</InputItem>
+                  <InputItem {...getFieldProps('inputmoney')} labelNumber={7} type="number" placeholder="请输入整数押金补缴金额">输入押金补缴金额</InputItem>
                 </List>
 
                 <List className={cs(styles.commonList, styles.chooseMoneyList)}>
                   <List.Item>
-                    <div>或者选择充值金额</div>
+                    <div>或者选择押金补缴金额</div>
                     <Flex className={styles.moneyOneList}>
                       <Flex.Item>
                         <Button size="small" type={(chooseMoney === 100) ? 'primary' : 'default'} onClick={() => this.props.handleChooseMoney(100)}>100</Button>
@@ -97,7 +87,7 @@ class VisitCardRecharge extends React.Component {
                 </div>
               </div>
             :
-              <ActivityIndicator text="Loading..." className={styles.visitcardinfoLoading} />
+              <ActivityIndicator text="Loading..." className={styles.detailLoading} />
             }
           </div>
         }
@@ -116,17 +106,17 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     handleRecharge: (t) => {
       const { no, chooseMoney, visitmen } = t.props.pagedata.set;
-      const { visitcardinfo } = t.props.pagedata.res;
+      const { detail } = t.props.pagedata.res;
 
-      dispatch({
-        type: `${pagespace}/fetchInsertRow`,
-        that: t,
-        payload: {
-          userId: visitcardinfo.userId,
-          visitNo: no,
-          fee: chooseMoney || visitmen.inputmoney.value,
-        },
-      });
+      // dispatch({
+      //   type: `${pagespace}/fetchInsertRow`,
+      //   that: t,
+      //   payload: {
+      //     userId: detail.userId,
+      //     visitNo: no,
+      //     fee: chooseMoney || visitmen.inputmoney.value,
+      //   },
+      // });
     },
   };
 }
@@ -150,4 +140,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(createForm({
       payload: fields,
     });
   },
-})(VisitCardRecharge));
+})(InpatientPayDeposit));

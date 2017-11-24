@@ -14,17 +14,8 @@ export function listPageData(action, config, options) {}
 /* 列出全部数据 */
 export function listAllData(action, config, options) {}
 /* 列出全部级别数据 */
-export function listTreeData(action, config, options) {
-  // return request(action, config, {
-  //   Url: `${apiPrefix}dept/getAllDeptList${apiNexfix}`,
-  //   method: 'POST',
-  //   body: options,
-  // });
-  return request(action, config, {
-    Url: '/weixin/dept/getAllDeptList.do',
-    method: 'POST',
-    body: options,
-  });
-}
+export function listTreeData(action, config, options) {}
 /* 列出指定级别数据 */
 export function listOneLevelData(action, config, options) {}
+/* 列出缴费明细 */
+export function listDetailList(action, config, options) {}

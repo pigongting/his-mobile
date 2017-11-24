@@ -29,5 +29,12 @@ export default {
         ["import", [{libraryName: "antd-mobile", libraryDirectory: "lib", style: true}]]
       ]
     }
-  }
+  },
+  proxy: {
+    "/weixin": {
+      target: "http://192.168.3.201:8080/WiseMedical",
+      changeOrigin: true,
+      pathRewrite: { "^/weixin" : "" }
+    }
+  },
 };

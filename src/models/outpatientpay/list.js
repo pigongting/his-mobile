@@ -1,9 +1,10 @@
 import update from 'immutability-helper';
-import { fetchGuaHaoPre, updateGuaHaoPre } from '../../reducers/doctor';
+import moment from 'moment';
+import { fetchAllData, updateAllData } from '../../reducers/outpatientpay';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'doctororderlist';
-const pagepath = '/doctor/orderlist';
+const pagespace = 'outpatientpaylist';
+const pagepath = '/outpatientpay/list';
 const initstate = {
   req: {},
   res: {},
@@ -19,11 +20,13 @@ export default {
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
     saveNO: (state, action) => { return update(state, { set: { no: { $set: action.payload } } }); },
-    updateGuaHaoPre,
+    saveStatus: (state, action) => { return update(state, { set: { status: { $set: action.payload } } }); },
+    noVisitNo: (state, action) => { return update(state, { set: { notips: { $set: '您暂未绑卡，前往医院办理实体卡绑定后充值' } } }); },
+    updateAllData,
   },
 
   effects: {
-    fetchGuaHaoPre: (action, { call, put, select }) => fetchGuaHaoPre(action, { call, put, select }, pagespace),
+    fetchAllData: (action, { call, put, select }) => fetchAllData(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
@@ -32,7 +35,10 @@ export default {
         if (removelocal(pathname) === pagepath) {
           if (query.no) {
             dispatch({ type: 'saveNO', payload: query.no });
-            dispatch({ type: 'fetchGuaHaoPre', payload: query.no });
+            dispatch({ type: 'saveStatus', payload: query.status });
+            dispatch({ type: 'fetchAllData', payload: query.no });
+          } else {
+            dispatch({ type: 'noVisitNo' });
           }
         } else {
           dispatch({ type: 'resetstate' });

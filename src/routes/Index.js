@@ -14,7 +14,20 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div className={styles.aaa}>123</div>
+      <div className={styles.aaa}>
+        <Link to={`/${this.props.locale}/dept/list`}>预约挂号</Link>
+        <Link to={`/${this.props.locale}/doctor/orderlist`}>挂号列表</Link>
+        <Link to={`/${this.props.locale}/visitmen/list`}>就诊人列表</Link>
+        <Link to={`/${this.props.locale}/visitmen/list?from=recharge`}>就诊卡充值</Link>
+        <Link to={`/${this.props.locale}/visitcard/rechargerecord`}>就诊卡充值记录</Link>
+        <Link to={`/${this.props.locale}/visitmen/list?from=report`}>报告列表</Link>
+        <Link to={`/${this.props.locale}/dept/article`}>医院导航</Link>
+        <Link to={`/${this.props.locale}/hospital/article?id=1`}>医院介绍</Link>
+        <Link to={`/${this.props.locale}/visitmen/list?from=outpatientwaitpay`}>门诊缴费</Link>
+        <Link to={`/${this.props.locale}/visitmen/list?from=outpatienthavepay`}>门诊缴费记录</Link>
+        <Link to={`/${this.props.locale}/inpatientpay/inputnumber`}>住院缴费</Link>
+        <Link to={`/${this.props.locale}/user/homepage`}>个人中心</Link>
+      </div>
     );
   }
 }

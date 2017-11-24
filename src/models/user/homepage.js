@@ -1,9 +1,8 @@
 import update from 'immutability-helper';
-import { fetchGuaHaoPre, updateGuaHaoPre } from '../../reducers/doctor';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'doctororderlist';
-const pagepath = '/doctor/orderlist';
+const pagespace = 'homepage';
+const pagepath = '/user/homepage';
 const initstate = {
   req: {},
   res: {},
@@ -18,22 +17,15 @@ export default {
 
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
-    saveNO: (state, action) => { return update(state, { set: { no: { $set: action.payload } } }); },
-    updateGuaHaoPre,
   },
 
-  effects: {
-    fetchGuaHaoPre: (action, { call, put, select }) => fetchGuaHaoPre(action, { call, put, select }, pagespace),
-  },
+  effects: {},
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (removelocal(pathname) === pagepath) {
-          if (query.no) {
-            dispatch({ type: 'saveNO', payload: query.no });
-            dispatch({ type: 'fetchGuaHaoPre', payload: query.no });
-          }
+          console.log(pathname);
         } else {
           dispatch({ type: 'resetstate' });
         }

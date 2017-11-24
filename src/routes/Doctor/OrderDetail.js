@@ -49,7 +49,7 @@ class DoctorOrderDetail extends React.Component {
               <List.Item extra={orderdetail.deptName}>科室</List.Item>
               <List.Item extra={orderdetail.doctorName}>医生</List.Item>
               <List.Item extra={`${moment(orderdetail.toDate).format('YYYY-MM-DD')} ${moment(orderdetail.beginTime).format('HH:mm')}-${moment(orderdetail.endTime).format('HH:mm')}`}>时间</List.Item>
-              <List.Item extra={`￥${orderdetail.guaHaoFee}`}>挂号费</List.Item>
+              <List.Item extra={`¥${orderdetail.guaHaoFee}`}>挂号费</List.Item>
             </List>
             <List renderHeader={() => '就诊人信息'} className={styles.infoList}>
               <List.Item extra={orderdetail.userName}>就诊人</List.Item>

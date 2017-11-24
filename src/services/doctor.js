@@ -32,7 +32,7 @@ export function listOneLevelData(action, config, options) {}
 /* 列出用户挂号数据 */
 export function listGuaHaoPre(action, config, options) {
   return request(action, config, {
-    Url: `${apiPrefix}guaHaoPre/getGuaHaoPreByUserId${apiNexfix}`,
+    Url: `${apiPrefix}guaHaoPre/getGuaHaoPreByVisitNo${apiNexfix}`,
     method: 'POST',
     body: options,
   });

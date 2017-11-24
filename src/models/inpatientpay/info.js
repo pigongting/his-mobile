@@ -1,9 +1,10 @@
 import update from 'immutability-helper';
-import { fetchGuaHaoPre, updateGuaHaoPre } from '../../reducers/doctor';
+import moment from 'moment';
+import { fetchViewedRow, updateViewedRow } from '../../reducers/inpatientinfo';
 import { removelocal } from '../../utils/localpath';
 
-const pagespace = 'doctororderlist';
-const pagepath = '/doctor/orderlist';
+const pagespace = 'inpatientpayinfo';
+const pagepath = '/inpatientpay/info';
 const initstate = {
   req: {},
   res: {},
@@ -19,11 +20,12 @@ export default {
   reducers: {
     resetstate: (state) => { return update(state, { $set: initstate }); },
     saveNO: (state, action) => { return update(state, { set: { no: { $set: action.payload } } }); },
-    updateGuaHaoPre,
+    noVisitNo: (state, action) => { return update(state, { set: { notips: { $set: '无效住院号，请返回重新输入！' } } }); },
+    updateViewedRow,
   },
 
   effects: {
-    fetchGuaHaoPre: (action, { call, put, select }) => fetchGuaHaoPre(action, { call, put, select }, pagespace),
+    fetchViewedRow: (action, { call, put, select }) => fetchViewedRow(action, { call, put, select }, pagespace),
   },
 
   subscriptions: {
@@ -32,7 +34,9 @@ export default {
         if (removelocal(pathname) === pagepath) {
           if (query.no) {
             dispatch({ type: 'saveNO', payload: query.no });
-            dispatch({ type: 'fetchGuaHaoPre', payload: query.no });
+            dispatch({ type: 'fetchViewedRow', payload: query.no });
+          } else {
+            dispatch({ type: 'noVisitNo' });
           }
         } else {
           dispatch({ type: 'resetstate' });

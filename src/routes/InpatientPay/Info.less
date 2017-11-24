@@ -1,0 +1,23 @@
+.detailLoading {
+  height: 200px;
+  justify-content: center;
+}
+
+.commonList {
+  margin-top: 10px;  
+
+  :global(.am-list-item .am-list-line) {
+    :global(.am-list-content) {
+      font-size: 16px;
+    }
+    :global(.am-list-extra) {
+      color: #1F90E6;
+    }
+  }  
+
+  :global(.am-list-item.money .am-list-line) {
+    :global(.am-list-extra) {
+      color: #ff5b05;
+    }
+  }
+}

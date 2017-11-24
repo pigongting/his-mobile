@@ -51,20 +51,17 @@ function mapDispatchToProps(dispatch, ownProps) {
         case 'report':
           router.push(`/${t.props.locale}/report/list?no=${no || ''}`);
           break;
-        case 'getnumber':
-          router.push(`/${t.props.locale}/getnumber/list?no=${no || ''}`);
+        case 'outpatientwaitpay':
+          router.push(`/${t.props.locale}/outpatientpay/list?status=wait&no=${no || ''}`);
           break;
-        case 'lineup':
-          router.push(`/${t.props.locale}/lineup/list?no=${no || ''}`);
+        case 'outpatienthavepay':
+          router.push(`/${t.props.locale}/outpatientpay/list?status=have&no=${no || ''}`);
           break;
-        case 'outpatientpay':
-          router.push(`/${t.props.locale}/outpatientpay/list?no=${no || ''}`);
+        case 'inpatienthavepay':
+          router.push(`/${t.props.locale}/inpatientpay/list?status=have&no=${no || ''}`);
           break;
-        case 'inpatientpay':
-          router.push(`/${t.props.locale}/inpatientpay/list?no=${no || ''}`);
-          break;
-        case 'account':
-          router.push(`/${t.props.locale}/account/list?no=${no || ''}`);
+        case 'guahao':
+          router.push(`/${t.props.locale}/doctor/orderlist?no=${no || ''}`);
           break;
         default:
           router.push(`/${t.props.locale}/visitmen/detail?id=${id}`);
