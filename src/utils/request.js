@@ -1,4 +1,7 @@
 import fetch from 'dva/fetch';
+import moment from 'moment';
+import clone from 'clone';
+import { getOauthAddress } from '../reducers/weixin';
 
 /**
  * 验证请求状态
@@ -34,28 +37,20 @@ function checkStatus(response, action, timestamp) {
  * @return {object}               正常时返回 data，否则抛出错误
  */
 function checkData(data, action, timestamp) {
-  // 虚拟返回数据
-  // if (data) {
-  //   return data;
-  // }
-
-  // 真实返回数据
   if (data.code === 0) {
     return data;
+  }
+
+  if (data.code === 10693) {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('sysUserId');
+    location.href = getOauthAddress(encodeURIComponent(location.href));
   }
 
   // console.log(timestamp);
   // console.log(global[`${action.type}_fetchTimestamp`]);
   global[`${action.type}_fetchTimestamp`] = undefined;
 
-  // 虚拟返回数据
-  // throw new Error(JSON.stringify({
-  //   status: 'fetcherror',
-  //   message: 'mock',
-  //   erroraction: action,
-  // }));
-
-  // 真实返回数据
   throw new Error(JSON.stringify({
     status: 'fetcherror',
     message: data.msg,
@@ -104,7 +99,7 @@ function timeoutHandle(timeout, action) {
  */
 export default async function request(action, { mode = 'wait', timeout = 10000 }, param) {
   // console.log(action);
-  const options = JSON.parse(JSON.stringify(param));
+  const options = clone(param);
 
   // 请求时间戳
   const timestamp = new Date().getTime();
@@ -135,6 +130,13 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
 
   if (options.method && options.method !== 'GET') {
     fetchset.method = options.method;
+
+    if (!localStorage.getItem('userToken')) {
+      throw new Error(JSON.stringify({
+        status: 'fetcherror',
+        message: '未授权用户',
+      }));
+    }
   }
 
   if (options.body) {
@@ -146,7 +148,13 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
           const item = fields[key].value;
           if (item) {
             if (Object.prototype.toString.call(item) === '[object Array]') {
-              options.body[key] = item[item.length - 1];
+              const newitem = item.map((ele) => {
+                if (moment.isMoment(ele)) { return ele.format('YYYY-MM-DD HH:mm:ss'); } else { return ele; }
+              });
+
+              options.body[key] = newitem[newitem.length - 1];
+            } else if (moment.isMoment(item)) {
+              options.body[key] = item.format('YYYY-MM-DD HH:mm:ss');
             } else {
               options.body[key] = item;
             }
@@ -173,10 +181,10 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
           const item = options.body.tableFilters[key];
           const sql = options.body.sql[key];
           if (item) {
-            if (sql) {
+            if (sql && sql !== 'tree') {
               options.body.filters[key] = [sql, [item]];
             } else {
-              options.body.filters[key] = ['=', [item[item.length - 1]]];
+              options.body.filters[key] = [(sql || '='), [item[item.length - 1]]];
             }
           }
         }
@@ -194,14 +202,22 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
           const sql = options.body.sql[key];
           const item = formFilters[key].value;
           if (item) {
-            if (!options.body.filters.searchkey.value && (key === 'searchkey' || key === 'searchvalue')) {
-              if (formFilters.searchkey && formFilters.searchkey.value && formFilters.searchvalue && formFilters.searchvalue.value) {
-                options.body.filters.searchkey.value = ['like', formFilters.searchvalue.value];
+            if (key === 'searchkey' || key === 'searchvalue') {
+              if (key === 'searchkey' && formFilters.searchvalue && formFilters.searchvalue.value) {
+                options.body.filters[item] = ['like', formFilters.searchvalue.value];
               }
             } else if (Object.prototype.toString.call(item) === '[object Array]') {
-              options.body.filters[key] = [(sql || '='), item];
+              const newitem = item.map((ele) => {
+                if (moment.isMoment(ele)) { return ele.format('YYYY-MM-DD HH:mm:ss'); } else { return ele; }
+              });
+
+              if (sql && sql !== 'tree') {
+                options.body.filters[key] = [sql, newitem];
+              } else {
+                options.body.filters[key] = [(sql || '='), [newitem[newitem.length - 1]]];
+              }
             } else {
-              options.body.filters[key] = [(sql || '='), [item]];
+              options.body.filters[key] = [(sql || '='), [moment.isMoment(item) ? item.format('YYYY-MM-DD HH:mm:ss') : item]];
             }
           }
         }
@@ -214,7 +230,10 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
   if (options.method === 'POST') {
     fetchset.body = JSON.stringify(options.body);
     fetchset.mode = 'cors';
-    fetchset.headers = { 'Content-Type': 'application/json' };
+    fetchset.headers = {
+      'Content-Type': 'application/json',
+      'User-Token': localStorage.getItem('userToken'),
+    };
   }
 
   console.log(options.body);

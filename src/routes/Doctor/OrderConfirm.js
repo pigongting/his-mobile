@@ -113,15 +113,15 @@ function mapDispatchToProps(dispatch, ownProps) {
         if (!error) {
           const fields = form.getFieldsValue();
 
-          // dispatch({
-          //   type: 'doctororderconfirm/submitOrderConfirm',
-          //   payload: {
-          //     doctorSchId: req.doctorSchId,
-          //     userId: req.userId,
-          //     visitNo: fields.visitNo,
-          //     noType: 'wechat',
-          //   },
-          // });
+          dispatch({
+            type: 'doctororderconfirm/submitOrderConfirm',
+            payload: {
+              doctorSchId: req.doctorSchId,
+              userId: req.userId,
+              visitNo: fields.visitNo || 5624125,
+              noType: 'wechat',
+            },
+          });
         }
       });
     },

@@ -1,43 +1,54 @@
 import update from 'immutability-helper';
 import moment from 'moment';
 import Toast from 'antd-mobile/lib/toast';
-import * as fetch from '../services/doctor';
+import request from '../utils/request';
 
 /* 查看 */
 export function *fetchViewedRow(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.viewedRow, { errormsg: '医生信息加载失败', ...action }, {}, {
-    doctorId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDoctorInfo }),
+    { errormsg: '医生信息加载失败', ...action }, {}, { doctorId: action.payload },
+  );
+
   yield put({ type: 'updateDoctorInfo', payload: data });
 }
 
 /* 列出分页数据 */
 export function *fetchDoctorAllData(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.listAllData, { errormsg: '医生列表加载失败', ...action }, {}, {
-    hospitalDeptId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDoctorSchByDept }),
+    { errormsg: '医生列表加载失败', ...action }, {}, { hospitalDeptId: action.payload },
+  );
+
   yield put({ type: 'updateDoctorAllData', payload: data });
 }
 
 /* 列出用户挂号数据 */
 export function *fetchGuaHaoPre(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.listGuaHaoPre, { errormsg: '医生列表加载失败', ...action }, {}, {
-    visitNo: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getGuaHaoPreByVisitNo }),
+    { errormsg: '医生列表加载失败', ...action }, {}, { visitNo: action.payload },
+  );
+
   yield put({ type: 'updateGuaHaoPre', payload: data });
 }
 
 /* 获取下轮放号时间 */
 export function *fetchNextNoTime(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.getNextNoTime, { errormsg: '下轮放号时间加载失败', ...action }, {}, {
-    hospitalDeptId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDeptNextNoTimeById }),
+    { errormsg: '下轮放号时间加载失败', ...action }, {}, { hospitalDeptId: action.payload },
+  );
+
   yield put({ type: 'updateNextNoTime', payload: data });
 }
 
 /* 获取号码时间段 */
 export function *fetchNoTimeSlot(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.getNoTimeSlot, { errormsg: '号码时间段加载失败', ...action }, {}, action.payload);
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDoctorSchDetail }),
+    { errormsg: '号码时间段加载失败', ...action }, {}, action.payload,
+  );
 
   const newData = {};
 
@@ -58,9 +69,10 @@ export function *fetchNoTimeSlot(action, { call, put, select }, namespace) {
 
 /* 获取有号日期 */
 export function *fetchHaveNoDate(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.getHaveNoDate, { errormsg: '有号日期加载失败', ...action }, {}, {
-    doctorId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDoctorSchByDoctor }),
+    { errormsg: '有号日期加载失败', ...action }, {}, { doctorId: action.payload },
+  );
 
   // 生成 10 天
   const newData = [];
@@ -93,15 +105,20 @@ export function *fetchHaveNoDate(action, { call, put, select }, namespace) {
 
 /* 获取预约确认信息 */
 export function *fetchOrderConfirm(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.getOrderConfirm, { errormsg: '预约确认信息加载失败', ...action }, {}, {
-    doctorSchId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getDoctorSchConfirm }),
+    { errormsg: '预约确认信息加载失败', ...action }, {}, { doctorSchId: action.payload },
+  );
+
   yield put({ type: 'updateOrderConfirm', payload: data });
 }
 
 /* 提交预约确认信息 */
 export function *submitOrderConfirm(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.submitOrderConfirm, { errormsg: '预约确认信息提交失败', ...action }, {}, action.payload);
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getGuahaoReturnId }),
+    { errormsg: '预约确认信息提交失败', ...action }, {}, action.payload,
+  );
 
   if (data.errorCode === 0) {
     yield put({ type: 'updateOrderID', payload: data.guaHaoId });
@@ -112,17 +129,20 @@ export function *submitOrderConfirm(action, { call, put, select }, namespace) {
 
 /* 提交预约确认信息 */
 export function *fetchOrderDetail(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.getOrderDetail, { errormsg: '预约详情加载失败', ...action }, {}, {
-    guaHaoPreId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getGuaHaoPreById }),
+    { errormsg: '预约详情加载失败', ...action }, {}, { guaHaoPreId: action.payload },
+  );
+
   yield put({ type: 'updateOrderDetail', payload: data });
 }
 
 /* 取消预约挂号 */
 export function *fetchCancelGuaHaoPre(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.cancelGuaHaoPre, { errormsg: '取消预约失败', ...action }, {}, {
-    guaHaoPreId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.cancelGuaHaoPre }),
+    { errormsg: '取消预约失败', ...action }, {}, { guaHaoPreId: action.payload },
+  );
 
   Toast.success('取消成功 !!!', 1, () => { action.that._reactInternalInstance._context.router.goBack(); });
 }

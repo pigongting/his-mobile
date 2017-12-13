@@ -14,7 +14,8 @@
     "afterEach": true,
     "beforeAll": true,
     "afterAll": true,
-    "describe": true
+    "iface": true,
+    "wx": true,
   },
   "rules": {
     "arrow-body-style": [0],

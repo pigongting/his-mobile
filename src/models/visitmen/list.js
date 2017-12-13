@@ -29,6 +29,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
+        console.log(pathname);
         if (removelocal(pathname) === pagepath) {
           if (query.from) {
             dispatch({ type: 'saveFrom', payload: query.from });

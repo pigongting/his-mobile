@@ -1,9 +1,13 @@
 import update from 'immutability-helper';
-import * as fetch from '../services/dept';
+import request from '../utils/request';
 
 /* 列出全部级别数据 */
 export function *fetchDeptTreeData(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.listTreeData, { errormsg: '科室列表加载失败', ...action }, {}, {});
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getAllDeptList }),
+    { errormsg: '科室列表加载失败', ...action }, {}, {},
+  );
+
   yield put({ type: 'updateDeptTreeData', payload: data });
 }
 

@@ -1,6 +1,4 @@
-import update from 'immutability-helper';
-// 处理 国际化地址 的函数
-import { removelocal, removelocalkeepmain, removelocalkeepsub, removelocalkeepthree } from '../utils/localpath';
+import { fetchUserToken, fetchJSSDK, getOauthAddress } from '../reducers/weixin';
 
 const initstate = {};
 
@@ -12,16 +10,23 @@ export default {
 
   reducers: {},
 
-  effects: {},
+  effects: {
+    fetchUserToken: (action, { call, put, select }) => fetchUserToken(action, { call, put, select }),
+    fetchJSSDK: (action, { call, put, select }) => fetchJSSDK(action, { call, put, select }),
+  },
 
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (removelocal(pathname) === '/index') {
-          // dispatch({ type: 'toggleMainSiderCollapsed', payload: false });
-        } else {
-          // dispatch({ type: 'toggleMainSiderCollapsed', payload: true });
-        }
+        // dispatch({ type: 'fetchJSSDK' });
+
+        // if (!localStorage.getItem('userToken')) {
+        //   if (query.code) {
+        //     dispatch({ type: 'fetchUserToken', payload: query.code, ohistory: history });
+        //   } else {
+        //     location.href = getOauthAddress(encodeURIComponent(location.href));
+        //   }
+        // }
       });
     },
   },

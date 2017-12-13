@@ -1,19 +1,16 @@
 import React from 'react';
 // antd 组件
-// import { notification, Button } from 'antd';
+import { Modal } from 'antd-mobile';
 
 const retryErrorType = ['dataError', 'timeout'];
 const errorDesc = {
-  addressError: '请检查是否写错了请求地址，或者请求地址服务没开',
-  requestState: '请检查请求参数，服务器程序',
-  dataError: '请检查请求参数，服务器程序',
-  timeout: '请检查网络',
+  addressError: '请检查是否写错了请求地址，或者请求地址服务没开。',
+  requestState: '请检查请求参数，服务器程序。',
+  dataError: '请检查请求参数，服务器程序。',
+  timeout: '请检查网络。',
 };
 
-function retry(openkey, dispatch, frommodel) {
-  // 删除错误提示
-  // notification.close(openkey);
-
+function retry(dispatch, frommodel) {
   setTimeout(() => {
     const pathname = window.location.pathname.replace(/[/]/g, '_');
     const errorActionHook = `fetchErrorActionHook${pathname}`;
@@ -36,19 +33,15 @@ function retry(openkey, dispatch, frommodel) {
 }
 
 function fetchErrorNotification(dispatch, action) {
-  const openkey = `open${Date.now()}`;
-  const notify = {
-    key: openkey,
-    description: errorDesc[action.errortype],
-    message: action.errormsg,
-  };
+  const operate = [{ text: '关闭' }];
+
   // 可以重试的错误类型
   if (retryErrorType.includes(action.errortype)) {
-    notify.duration = 0;
-    // notify.btn = (<Button type="primary" size="small" onClick={() => retry(openkey, dispatch)}>重试</Button>);
+    operate.push({ text: '重新加载', onPress: () => retry(dispatch) });
   }
+
   // 显示错误提示
-  // notification.error(notify);
+  Modal.alert(action.errormsg, errorDesc[action.errortype], operate);
 }
 
 function onError(e, dispatch) {
@@ -72,6 +65,7 @@ function onError(e, dispatch) {
     switch (msg.message) {
       case '被抛弃的请求':
       case '请求超时':
+      case '未授权用户':
         console.log(msg.message);
         break;
       default:

@@ -16,7 +16,7 @@ class Index extends React.Component {
     return (
       <div className={styles.aaa}>
         <Link to={`/${this.props.locale}/dept/list`}>预约挂号</Link>
-        <Link to={`/${this.props.locale}/doctor/orderlist`}>挂号列表</Link>
+        <Link to={`/${this.props.locale}/visitmen/list?from=guahao`}>挂号列表</Link>
         <Link to={`/${this.props.locale}/visitmen/list`}>就诊人列表</Link>
         <Link to={`/${this.props.locale}/visitmen/list?from=recharge`}>就诊卡充值</Link>
         <Link to={`/${this.props.locale}/visitcard/rechargerecord`}>就诊卡充值记录</Link>

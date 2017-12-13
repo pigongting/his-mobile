@@ -1,9 +1,12 @@
 import update from 'immutability-helper';
-import * as fetch from '../services/map';
+import request from '../utils/request';
 
 /* 列出全部级别数据 */
 export function *fetchAllData(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.listAllData, { errormsg: '科室列表加载失败', ...action }, {}, {});
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getHospitalMapAll }),
+    { errormsg: '科室列表加载失败', ...action }, {}, {},
+  );
 
   const buildingArray = [];
   const buildingObject = {};

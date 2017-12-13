@@ -18,7 +18,9 @@ class HospitalArticle extends React.Component {
   }
 
   componentDidUpdate() {
-    this.introBox.innerHTML = this.props.pagedata.res.detail.intro.replace(/style=".*?"/g, '');
+    if (this.props.pagedata.res.detail && this.props.pagedata.res.detail.intro) {
+      this.introBox.innerHTML = this.props.pagedata.res.detail.intro.replace(/style=".*?"/g, '');
+    }
   }
 
   render() {

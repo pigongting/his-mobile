@@ -1,13 +1,14 @@
 import update from 'immutability-helper';
 import Toast from 'antd-mobile/lib/toast';
-import * as fetch from '../services/hospital';
+import request from '../utils/request';
 import { changeDataType } from '../utils/handleData';
 
 /* 查看 */
 export function *fetchViewedRow(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.viewedRow, { errormsg: '医院详情查询失败', ...action }, {}, {
-    hospitalId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getHospitalById }),
+    { errormsg: '医院详情查询失败', ...action }, {}, { hospitalId: action.payload },
+  );
 
   yield put({ type: 'updateViewedRow', payload: data });
 }

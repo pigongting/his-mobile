@@ -16,7 +16,7 @@ import Picker from 'antd-mobile/lib/picker';
 import DatePicker from 'antd-mobile/lib/date-picker';
 import Switch from 'antd-mobile/lib/switch';
 import Toast from 'antd-mobile/lib/toast';
-import { handleCascadAddr } from '../../actions/CascadAddr';
+import { importCascadAddr } from '../../reducers/cascadAddr';
 import styles from './Detail.less';
 
 const pagespace = 'visitmendetail';
@@ -232,7 +232,7 @@ class VisitMenDetail extends React.Component {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleCascadAddr: () => handleCascadAddr(dispatch, pagespace, 'pcaCode'),
+    handleCascadAddr: () => importCascadAddr(dispatch, pagespace, 'pcaCode'),
     handleSubmit: (t) => {
       const { form, pagedata } = t.props;
       const { req } = pagedata;
@@ -244,7 +244,7 @@ function mapDispatchToProps(dispatch, ownProps) {
             type: `${pagespace}/fetchInsertRow`,
             that: t,
             payload: {
-              sysUserId: 1,
+              sysUserId: localStorage.getItem('sysUserId'),
               userName: fields.userName,
               idType: fields.idType && fields.idType[fields.idType.length - 1],
               idNumber: fields.idNumber,

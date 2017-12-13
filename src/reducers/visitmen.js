@@ -1,11 +1,14 @@
 import update from 'immutability-helper';
 import Toast from 'antd-mobile/lib/toast';
-import * as fetch from '../services/visitmen';
+import request from '../utils/request';
 import { changeDataType } from '../utils/handleData';
 
 /* 插入 */
 export function *fetchInsertRow(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.insertRow, { errormsg: '就诊人插入失败', ...action }, {}, action.payload);
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.insertUser }),
+    { errormsg: '就诊人插入失败', ...action }, {}, action.payload,
+  );
 
   Toast.success('添加成功 !!!', 1, () => {
     action.that._reactInternalInstance._context.router.push(`/${action.that.props.locale}/visitmen/detail?id=${data}`);
@@ -14,18 +17,20 @@ export function *fetchInsertRow(action, { call, put, select }, namespace) {
 
 /* 删除 */
 export function *fetchDeleteRow(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.deleteRow, { errormsg: '就诊人删除失败', ...action }, {}, {
-    userId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.deleteUser }),
+    { errormsg: '就诊人删除失败', ...action }, {}, { userId: action.payload },
+  );
 
   Toast.success('删除成功 !!!', 1, () => { action.that._reactInternalInstance._context.router.goBack(); });
 }
 
 /* 查看 */
 export function *fetchViewedRow(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.viewedRow, { errormsg: '就诊人加载失败', ...action }, {}, {
-    userId: action.payload,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getUserById }),
+    { errormsg: '就诊人加载失败', ...action }, {}, { userId: action.payload },
+  );
 
   try {
     if (data) {
@@ -67,9 +72,11 @@ export function *fetchViewedRow(action, { call, put, select }, namespace) {
 
 /* 列出全部数据 */
 export function *fetchVisitMenAllData(action, { call, put, select }, namespace) {
-  const { data } = yield call(fetch.listAllData, { errormsg: '就诊人列表加载失败', ...action }, {}, {
-    sysUserId: 1,
-  });
+  const { data } = yield call(
+    (atp, config, options) => request(atp, config, { method: 'POST', body: options, Url: iface.getUserBySysUserId }),
+    { errormsg: '就诊人列表加载失败', ...action }, {}, { sysUserId: localStorage.getItem('sysUserId') },
+  );
+
   yield put({ type: 'updateVisitMenAllData', payload: data });
 }
 
