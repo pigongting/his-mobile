@@ -1,4 +1,4 @@
-const apiPrefix = 'http://192.168.3.201:8080/WiseMedical/';
+const apiPrefix = 'http://pigongting.natappvip.cc/api/WiseMedical/';
 const apiNexfix = '.do';
 
 window.iface = {

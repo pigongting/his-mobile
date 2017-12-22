@@ -32,9 +32,14 @@ export default {
   },
   proxy: {
     "/weixin": {
-      target: "http://192.168.3.154:8080/WeixinSoft/weixin/weiXinCallbackUrl",
+      target: "http://192.168.3.201:8080/WeixinSoft/weixin/weiXinCallbackUrl",
       changeOrigin: true,
       pathRewrite: { "^/weixin" : "" }
+    },
+    "/api": {
+      target: "http://192.168.3.201:8080",
+      changeOrigin: true,
+      pathRewrite: { "^/api" : "" }
     }
   },
 };

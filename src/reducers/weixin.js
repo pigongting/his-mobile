@@ -3,7 +3,7 @@ import request from '../utils/request';
 /* 获取用户Token */
 export function *fetchUserToken(action, { call, put, select }) {
   const { data } = yield call(
-    (atp, config, options) => request(atp, config, { method: 'GET', body: options, Url: `http://192.168.3.154:8080/WeixinSoft/weixin/weixinlogin?code=${action.payload}` }),
+    (atp, config, options) => request(atp, config, { method: 'GET', body: options, Url: `http://192.168.3.201:8080/WeixinSoft/weixin/weixinlogin?code=${action.payload}` }),
     { errormsg: 'OpenId加载失败', ...action }, {}, undefined,
   );
 
@@ -18,7 +18,7 @@ export function *fetchUserToken(action, { call, put, select }) {
 /* 获取 jssdk 签名 */
 export function *fetchJSSDK(action, { call, put, select }) {
   const { data } = yield call(
-    (atp, config, options) => request(atp, config, { method: 'GET', body: options, Url: `http://192.168.3.154:8080/WeixinSoft/weixin/configuration?url=${location.href}` }),
+    (atp, config, options) => request(atp, config, { method: 'GET', body: options, Url: `http://192.168.3.201:8080/WeixinSoft/weixin/configuration?url=${location.href}` }),
     { errormsg: 'JSSDK加载失败', ...action }, {}, undefined,
   );
 

@@ -17,6 +17,7 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
+      localStorage.setItem('sysUserId', 1);
       return history.listen(({ pathname, query }) => {
         // dispatch({ type: 'fetchJSSDK' });
 

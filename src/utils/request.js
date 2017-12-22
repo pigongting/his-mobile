@@ -131,12 +131,12 @@ export default async function request(action, { mode = 'wait', timeout = 10000 }
   if (options.method && options.method !== 'GET') {
     fetchset.method = options.method;
 
-    if (!localStorage.getItem('userToken')) {
-      throw new Error(JSON.stringify({
-        status: 'fetcherror',
-        message: '未授权用户',
-      }));
-    }
+    // if (!localStorage.getItem('userToken')) {
+    //   throw new Error(JSON.stringify({
+    //     status: 'fetcherror',
+    //     message: '未授权用户',
+    //   }));
+    // }
   }
 
   if (options.body) {
